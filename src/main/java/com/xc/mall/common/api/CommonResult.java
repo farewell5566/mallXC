@@ -63,6 +63,12 @@ public class CommonResult<T> {
         return failed(ResultCode.UNAUTOORIZED);
     }
 
+    public static <T> CommonResult<T> unauthorized(String messgae){
+        return failed(messgae);
+
+    }
+
+
     //未授权返回结果
     public static <T> CommonResult<T>forbidden(T data){
         return new CommonResult<T>(ResultCode.FORBIDDEN.getCode(),ResultCode.FORBIDDEN.getMessage(),data);
