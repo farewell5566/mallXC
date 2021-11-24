@@ -84,11 +84,21 @@ public class JwtTokenUtil {
         return expiredDate.before(new Date());
     }
 
+    /**
+     * 从token中获取过期时间
+     * @param token
+     * @return
+     */
     private Date getExpiredDateFromToken(String token){
         Claims claims = getClaimsFromToken(token);
         return claims.getExpiration();
     }
 
+    /**
+     * 根据用户信息刷新token
+     * @param userDetails
+     * @return
+     */
     public String generationToken(UserDetails userDetails){
         Map<String,Object> claims = new HashMap<>();
         claims.put(CLAIM_KEY_USERNAME,userDetails.getUsername());
@@ -97,10 +107,20 @@ public class JwtTokenUtil {
 
     }
 
+    /**
+     * 判断token是否被刷新
+     * @param token
+     * @return
+     */
     public boolean canRefresh(String token){
         return !isTokenExpired(token);
     }
 
+    /**
+     * 刷新token
+     * @param token
+     * @return
+     */
     public String refreshToken(String token){
         Claims claims = getClaimsFromToken(token);
         claims.put(CLAIM_KEY_CREATED,new Date());
